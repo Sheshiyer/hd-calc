@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: hd-calc
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: REDIS_URL
+        sync: false # Will be set manually in Render dashboard
+      - key: API_KEY
+        sync: false # Will be set manually in Render dashboard
+    autoDeploy: true
+    plan: starter
+    scaling:
+      minInstances: 1
+      maxInstances: 3
+      targetMemoryPercent: 80
+      targetCPUPercent: 80
